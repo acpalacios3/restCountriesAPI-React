@@ -28,7 +28,7 @@ function CountryCard({ country }) {
                 </p>
 
                 <p>
-                     {/* join() joins the elements of the array using a separator */}
+                    {/* join() joins the elements of the array using a separator */}
                     <strong>Capital:</strong>{" "}
                     {country.capitals?.map(capital => capital.name).join(", ") || "No capital listed"}
                 </p>

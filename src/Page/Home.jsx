@@ -1,7 +1,5 @@
-
-
 import useFetcher from "../hooks/useFetcher";
-import CountryCard from "../Components/CountryCard";
+import CountryList from "../Components/CountryList";
 
 const API_URL = "https://api.restcountries.com/countries/v5?limit=100";
 
@@ -21,7 +19,7 @@ export default function Home() {
         return <p>Error: {error}</p>;
     }
 
- //  inspect API data
+    //  inspect API data
     console.log("First country:", countries[10]);
 
     console.log(
@@ -32,47 +30,11 @@ export default function Home() {
     return (
         <main>
             <h1>REST Countries</h1>
-            <h2>Testing CountryCard</h2>
-              <CountryCard country={countries[5]} />
 
-              <h2>=============================</h2>
-              
-         
             <p>Total countries loaded: {countries.length}</p>
 
-            <section>
-                {countries.map((country) => (
-                    <article key={country.codes.alpha_3}>
-                       
-                       {/* It won't show the flag image when it's null or undefined.  */}
-                        {country.flag?.url_png && (
-                            <img
-                                className="country-flag"
-                                src={country.flag.url_png}
-                                alt={`Flag of ${country.names.common}`}
-                                width="150"
-                            />
-                        )}
+            <CountryList countries={countries} />
 
-                        <h2>{country.names.common}</h2>
-
-                        <p>
-                            <strong>Population:</strong>{" "}
-                            {country.population?.toLocaleString()}
-                        </p>
-
-                        <p>
-                            <strong>Region:</strong> {country.region}
-                        </p>
-
-                        <p>
-                            <strong>Capital:</strong>{" "}
-                            {country.capitals?.join(", ") || "No capital listed"}
-                        </p>
-
-                    </article>
-                ))}
-            </section>
         </main>
     );
 }

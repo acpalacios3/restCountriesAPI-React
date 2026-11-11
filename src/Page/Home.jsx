@@ -1,6 +1,7 @@
 
 
 import useFetcher from "../hooks/useFetcher";
+import CountryCard from "../Components/CountryCard";
 
 const API_URL = "https://api.restcountries.com/countries/v5?limit=100";
 
@@ -21,7 +22,7 @@ export default function Home() {
     }
 
  //  inspect API data
-    console.log("First country:", countries[0]);
+    console.log("First country:", countries[10]);
 
     console.log(
         "Countries without flag URL:",
@@ -31,7 +32,12 @@ export default function Home() {
     return (
         <main>
             <h1>REST Countries</h1>
+            <h2>Testing CountryCard</h2>
+              <CountryCard country={countries[5]} />
 
+              <h2>=============================</h2>
+              
+         
             <p>Total countries loaded: {countries.length}</p>
 
             <section>
@@ -41,6 +47,7 @@ export default function Home() {
                        {/* It won't show the flag image when it's null or undefined.  */}
                         {country.flag?.url_png && (
                             <img
+                                className="country-flag"
                                 src={country.flag.url_png}
                                 alt={`Flag of ${country.names.common}`}
                                 width="150"

@@ -1,5 +1,6 @@
 import useFetcher from "../hooks/useFetcher";
 import CountryList from "../Components/CountryList";
+import Navbar from "../Components/Navbar";
 
 const API_URL = "https://api.restcountries.com/countries/v5?limit=100";
 
@@ -29,7 +30,7 @@ export default function Home() {
 
     return (
         <main>
-            <h1>REST Countries</h1>
+             <Navbar/>
 
             <p>Total countries loaded: {countries.length}</p>
 

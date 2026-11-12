@@ -4,9 +4,9 @@ function SearchBar({ searchCountry, onSearch }) {
         // allows enter a country name and sends the input value
         <div className="search-container">
 
-             {/* Search icon */}
+            {/* Search icon */}
             <span className="search-icon" aria-hidden="true"></span>
-            
+
             {/* country search input */}
             <input
                 type="text"

@@ -51,75 +51,99 @@ export default function CountryDetails({ countries }) {
     );
 
     return (
-        <main>
+        <main className="country-details">
 
-            <h1>Country Details</h1>
-
-            {/* Country flag */}
-            <img
-                src={selectedCountry.flag.url_png}
-                alt={`Flag of ${selectedCountry.names.common}`}
-                width="250"
-            />
-
-            {/* Country name */}
-            <h2>{selectedCountry.names.common}</h2>
-
-            {/* First information column */}
-            <div className="country-info">
-
-                <p><strong>Native Name:</strong> {nativeNameText} </p>
-
-                {/* Country information */}
-                <p>
-                    <strong>Population:</strong>{" "}
-                    {selectedCountry.population.toLocaleString()}
-                </p>
-
-                <p><strong>Region:</strong> {selectedCountry.region}</p>
-
-                <p>
-                    <strong>Sub Region:</strong>{" "}
-                    {selectedCountry.subregion || "Not available"}
-                </p>
-
-                <p>
-                    <strong>Capital:</strong>{" "}
-                    {selectedCountry.capitals?.map(capital => capital.name).join(", ")
-                        || "No capital listed"}
-                </p>
-
-                {/* Second information column */}
-                <p>
-                    <strong>Top Level Domain:</strong>{" "}
-                    {selectedCountry.tlds?.join(", ") || "Not available"}
-                </p>
-
-                <p> <strong>Currencies:</strong> {currencies}</p>
-
-                <p> <strong>Languages:</strong> {languages} </p>
-
-            </div>
+            {/* Back button */}
+            <Link to="/" className="back-button">
+                ← Back
+            </Link>
 
 
-            {/* Border Countries */}
-            <div className="border-countries">
+            <div className="country-content-detail">
 
-                <strong>Border Countries:</strong>
-                {borderCountries.length > 0 ? (
 
-                    borderCountries.map(country => (
-                        <Link
-                            key={country.codes.alpha_3}
-                            to={`/country/${country.codes.alpha_3}`}
-                        >
-                            {country.names.common}
-                        </Link>
-                    ))
+                {/* Country flag */}
+                <div className="country-flag-detail">
+                    <img
+                        src={selectedCountry.flag.url_png}
+                        alt={`Flag of ${selectedCountry.names.common}`}
+                        width="250"
+                    />
+                </div>
 
-                ) : (<span> No border countries </span>)
-                }
+                <div className="country-data-detail">
 
+                    {/* Country name */}
+                    <h2>{selectedCountry.names.common}</h2>
+
+                    {/* First information column */}
+                    <div className="country-info-detail">
+
+                        {/* fist column design */}
+                        <div>
+
+                            <p><strong>Native Name:</strong> {nativeNameText} </p>
+
+                            {/* Country information */}
+                            <p>
+                                <strong>Population:</strong>{" "}
+                                {selectedCountry.population.toLocaleString()}
+                            </p>
+
+                            <p><strong>Region:</strong> {selectedCountry.region}</p>
+
+                            <p>
+                                <strong>Sub Region:</strong>{" "}
+                                {selectedCountry.subregion || "Not available"}
+                            </p>
+
+                            <p>
+                                <strong>Capital:</strong>{" "}
+                                {selectedCountry.capitals?.map(capital => capital.name).join(", ")
+                                    || "No capital listed"}
+                            </p>
+                        </div>
+
+
+                        {/* Second information column */}
+
+                        <div>
+                            <p>
+                                <strong>Top Level Domain:</strong>{" "}
+                                {selectedCountry.tlds?.join(", ") || "Not available"}
+                            </p>
+
+                            <p> <strong>Currencies:</strong> {currencies}</p>
+
+                            <p> <strong>Languages:</strong> {languages} </p>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* Border Countries */}
+                    <div className="border-countries">
+
+                        <strong>Border Countries:</strong>
+                        {borderCountries.length > 0 ? (
+
+                            borderCountries.map(country => (
+
+                                // each border country becomes a navigable link
+                                <Link
+                                    key={country.codes.alpha_3}
+                                    to={`/country/${country.codes.alpha_3}`}
+                                >
+                                    {country.names.common}
+                                </Link>
+                            ))
+
+                        ) : (<span> No border countries </span>)
+                        }
+
+                    </div>
+                </div>
             </div>
 
 

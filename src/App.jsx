@@ -13,7 +13,8 @@ export default function App() {
   const {
     data: countries,
     loading,
-    error
+    error,
+    usingBackup
   } = useFetcher(API_URL);
 
   console.log("Countries received in App:", countries);
@@ -29,12 +30,14 @@ export default function App() {
     return <p>Error: {error}</p>;
   }
 
-
+  
   return (
     <Routes>
 
       {/* Home page */}
-      <Route path="/" element={<Home countries={countries} />}
+      <Route path="/" element={<Home countries={countries} 
+                                usingBackup={usingBackup}
+      />}
       />
 
       {/* Country details page */}

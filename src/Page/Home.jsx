@@ -6,7 +6,7 @@ import SearchBar from "../Components/SearchBar";
 import RegionFilter from "../Components/FilterRegion";
 
 
-export default function Home({ countries }) {
+export default function Home({ countries, usingBackup  }) {
 
     //  create the search state by Country
     const [searchCountry, setSearchCountry] = useState("");
@@ -33,6 +33,16 @@ export default function Home({ countries }) {
     return (
         <main>
             <Navbar />
+
+            {usingBackup && (
+                <div className="backup-message">
+                    <p>
+                        Notice: The Rest Countries API account has been temporarily
+                        frozen after exceeding its allowed API requests.
+                        We are currently using local backup data from countries.json.
+                    </p>
+                </div>
+            )}
 
             <div className="filters-container">
 

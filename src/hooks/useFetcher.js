@@ -33,80 +33,96 @@
 
 
 
-
 import { useState, useEffect } from "react";
+import countriesBackup from "../data/countries.json";
 
 export default function useFetcher(url) {
-
 
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+
+  const [usingBackup, setUsingBackup] = useState(false);
 
   useEffect(() => {
 
     async function fetchData() {
 
       try {
-        // We are loading, Currently no errors, No data visible.
-        setLoading(true)
-        setError(null)
-        setData(null)
+        // Start loading and reset previous states.
+        setLoading(true);
+        setError(null);
+        setData(null);
+        setUsingBackup(false);
 
-        // get the API key from the Vite environment variable
+        // Get the API key from the Vite environment variable.
         const API_KEY = import.meta.env.VITE_REST_COUNTRIES_API_KEY;
 
         if (!API_KEY) {
           throw new Error("API key is missing.");
         }
-        // make the API request
 
+        // Make the API request.
         const response = await fetch(url, {
           headers: {
             Authorization: `Bearer ${API_KEY}`
           }
         });
 
-        // Convert the response into JSON
+        // Convert the response into JSON.
         const json = await response.json();
 
-        // Check for API errors
+        // Check for API errors.
         if (!response.ok || json.errors?.length) {
           throw new Error(
             json.errors?.[0]?.message || `Error: ${response.status}`
           );
         }
 
-        console.log("API response:", json);
-        console.log("Countries:", json.data.objects);
-        console.log("First country:", json.data.objects[0]);
+        // Get the countries from the API response.
+        const countries = json.data?.objects;
 
-        // Get the countries from the API response
-        setData(json.data.objects);
+        // Validate the API response.
+        if (!Array.isArray(countries)) {
+          throw new Error("Invalid API response.");
+        }
+
+        console.log("Using countries from API");
+
+        setData(countries);
 
       } catch (err) {
-        // set to the error variable
-        setError(err.message);
+
+        // If the API fails, use the local JSON file.
+        console.warn("API unavailable. Using local countries.json:", err.message);
+        setUsingBackup(true);
+        setData(countriesBackup);
+
+        // No error is displayed because backup data is available.
+        setError(null);
 
       } finally {
-        // Tell the componenent we are not loading
-        setLoading(false)
+
+        // Finish loading.
+        setLoading(false);
 
       }
-
     }
 
     fetchData();
 
   }, [url]);
 
-  console.log('data ===>: ' + data);
-  console.log('loading ===>: ' + loading);
-  console.log('error ===>: ' + error);
+  console.log("data ===>:", data);
+  console.log("loading ===>:", loading);
+  console.log("error ===>:", error);
 
   return {
     data,
     loading,
-    error
+    error,
+    usingBackup
   };
 }
+
+

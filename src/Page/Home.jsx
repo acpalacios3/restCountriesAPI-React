@@ -40,6 +40,7 @@ export default function Home({ countries, usingBackup  }) {
                         Notice: The Rest Countries API account has been temporarily
                         frozen after exceeding its allowed API requests.
                         We are currently using local backup data from countries.json.
+                        The API availability cycle will reset on December 9, 2026.
                     </p>
                 </div>
             )}

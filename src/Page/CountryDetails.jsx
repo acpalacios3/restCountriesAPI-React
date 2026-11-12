@@ -4,7 +4,7 @@ export default function CountryDetails({ countries }) {
 
     // get the country code from the URL
     const { code } = useParams();
-    
+
     // test:
     // console.log("Country code from URL:", code);
     // http://localhost:5173/country/DEU
@@ -18,6 +18,32 @@ export default function CountryDetails({ countries }) {
     if (!selectedCountry) {
         return <p>Country not found.</p>;
     }
+
+    // get native name from the available data
+    const nativeName = selectedCountry.names.native;
+
+    // convert native name into readable text
+    const nativeNameText = typeof nativeName === "string"
+        ? nativeName
+        : nativeName
+            ? Object.values(nativeName)
+                .map(item => item.common || item.official || "")
+                .filter(Boolean)
+                .join(", ")
+            : "Not available";
+
+    // get currencies
+    const currencies = selectedCountry.currencies
+        ?.map(currency => currency.name)
+        .filter(Boolean)
+        .join(", ") || "Not available";
+
+    // get languages
+    const languages = selectedCountry.languages
+        ?.map(language => language.name)
+        .filter(Boolean)
+        .join(", ") || "Not available";
+
 
     return (
         <main>
@@ -34,19 +60,41 @@ export default function CountryDetails({ countries }) {
             {/* Country name */}
             <h2>{selectedCountry.names.common}</h2>
 
-            {/* Country information */}
-            <p>
-                <strong>Population:</strong>{" "}
-                {selectedCountry.population.toLocaleString()}
-            </p>
+            {/* First information column */}
+            <div className="country-info">
 
-            <p><strong>Region:</strong> {selectedCountry.region}</p>
+                <p><strong>Native Name:</strong> {nativeNameText} </p>
 
-            <p>
-                <strong>Capital:</strong>{" "}
-                {selectedCountry.capitals?.map(capital => capital.name).join(", ")
-                    || "No capital listed"}
-            </p>
+                {/* Country information */}
+                <p>
+                    <strong>Population:</strong>{" "}
+                    {selectedCountry.population.toLocaleString()}
+                </p>
+
+                <p><strong>Region:</strong> {selectedCountry.region}</p>
+
+                <p>
+                    <strong>Sub Region:</strong>{" "}
+                    {selectedCountry.subregion || "Not available"}
+                </p>
+
+                <p>
+                    <strong>Capital:</strong>{" "}
+                    {selectedCountry.capitals?.map(capital => capital.name).join(", ")
+                        || "No capital listed"}
+                </p>
+
+                {/* Second information column */}
+                <p>
+                    <strong>Top Level Domain:</strong>{" "}
+                    {selectedCountry.tlds?.join(", ") || "Not available"}
+                </p>
+
+                <p> <strong>Currencies:</strong> {currencies}</p>
+
+                <p> <strong>Languages:</strong> {languages} </p>
+
+            </div>
 
         </main>
     );

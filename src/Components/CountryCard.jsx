@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 function CountryCard({ country }) {
 
     return (
+
+         <Link
+            to={`/country/${country.codes.alpha_3}`}
+            className="country-card-link"
+        >
         <article className="country-card">
 
             {/* Country flag */}
@@ -45,6 +50,8 @@ function CountryCard({ country }) {
             </div>
 
         </article>
+
+        </Link>
     );
 }
 

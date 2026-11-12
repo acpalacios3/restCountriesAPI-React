@@ -45,13 +45,13 @@ export default function useFetcher(url) {
 
   useEffect(() => {
 
-
     async function fetchData() {
 
       try {
         // We are loading, Currently no errors, No data visible.
         setLoading(true)
         setError(null)
+        setData(null)
 
         // get the API key from the Vite environment variable
         const API_KEY = import.meta.env.VITE_REST_COUNTRIES_API_KEY;

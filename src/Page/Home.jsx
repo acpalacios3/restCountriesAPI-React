@@ -1,52 +1,28 @@
 import { useState } from "react";
 
-import useFetcher from "../hooks/useFetcher";
 import CountryList from "../Components/CountryList";
 import Navbar from "../Components/Navbar";
 import SearchBar from "../Components/SearchBar";
 import RegionFilter from "../Components/FilterRegion";
 
 
-const API_URL = "https://api.restcountries.com/countries/v5?limit=100";
-
-export default function Home() {
-
-    const {
-        data: countries,
-        loading,
-        error
-    } = useFetcher(API_URL);
+export default function Home({ countries }) {
 
     //  create the search state by Country
     const [searchCountry, setSearchCountry] = useState("");
 
-    //  create the search state by Region
+    //  select region state
     const [selectedRegion, setSelectedRegion] = useState("");
 
-    // loading validation
-    if (loading) {
-        return <p>Loading countries...</p>;
-    }
-
-    // Error validation
-    if (error) {
-        return <p>Error: {error}</p>;
-    }
-
-    //  inspect API data
-
-    console.log(
-        "Countries without flag URL:",
-        countries.filter(country => !country.flag?.url_png)
-    );
-
-  
+    // filter  countries by name or region
     const filteredCountries = countries.filter((country) => {
 
+        // check if country name matches the search
         const matchesName = country.names.common
             .toLowerCase()
             .includes(searchCountry.toLowerCase());
 
+        // check if country region matches the selection         
         const matchesRegion = selectedRegion === ""
             || country.region === selectedRegion;
 
@@ -59,28 +35,28 @@ export default function Home() {
             <Navbar />
 
             <div className="filters-container">
-            
-            {/* when the user types a country name, it updates the search state and clears the selected region */}
-            <SearchBar
-                searchCountry={searchCountry}
-                onSearch={(value) => {
-                    setSearchCountry(value);
-                    setSelectedRegion("");
-                }}
-            />
 
-             {/* when the user selects a region, it updates the region state and clears the country search input */}
-            <RegionFilter
-                selectedRegion={selectedRegion}
-                onRegionChange={(value) => {
-                    setSelectedRegion(value);
-                    setSearchCountry("");
-                }}
-            />
+                {/* when the user types a country name, it updates the search state and clears the selected region */}
+                <SearchBar
+                    searchCountry={searchCountry}
+                    onSearch={(value) => {
+                        setSearchCountry(value);
+                        setSelectedRegion("");
+                    }}
+                />
+
+                {/* when the user selects a region, it updates the region state and clears the country search input */}
+                <RegionFilter
+                    selectedRegion={selectedRegion}
+                    onRegionChange={(value) => {
+                        setSelectedRegion(value);
+                        setSearchCountry("");
+                    }}
+                />
 
             </div>
 
-              {/* displays the number of countries */}
+            {/* displays the number of countries */}
             {/* <p>Total countries loaded: {filteredCountries.length}</p> */}
 
             {/* displays the filtered countries if results are available.

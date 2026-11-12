@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 export default function CountryDetails({ countries }) {
 
@@ -44,6 +44,11 @@ export default function CountryDetails({ countries }) {
         .filter(Boolean)
         .join(", ") || "Not available";
 
+
+    // get bordering countries
+    const borderCountries = countries.filter(country =>
+        selectedCountry.borders?.includes(country.codes.alpha_3)
+    );
 
     return (
         <main>
@@ -95,6 +100,28 @@ export default function CountryDetails({ countries }) {
                 <p> <strong>Languages:</strong> {languages} </p>
 
             </div>
+
+
+            {/* Border Countries */}
+            <div className="border-countries">
+
+                <strong>Border Countries:</strong>
+                {borderCountries.length > 0 ? (
+
+                    borderCountries.map(country => (
+                        <Link
+                            key={country.codes.alpha_3}
+                            to={`/country/${country.codes.alpha_3}`}
+                        >
+                            {country.names.common}
+                        </Link>
+                    ))
+
+                ) : (<span> No border countries </span>)
+                }
+
+            </div>
+
 
         </main>
     );

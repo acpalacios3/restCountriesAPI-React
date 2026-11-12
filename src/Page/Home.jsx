@@ -57,6 +57,8 @@ export default function Home() {
     return (
         <main>
             <Navbar />
+
+            <div className="filters-container">
             
             {/* when the user types a country name, it updates the search state and clears the selected region */}
             <SearchBar
@@ -75,8 +77,11 @@ export default function Home() {
                     setSearchCountry("");
                 }}
             />
-              {/* displays the number of countries that match the current filter */}
-            <p>Total countries loaded: {filteredCountries.length}</p>
+
+            </div>
+
+              {/* displays the number of countries */}
+            {/* <p>Total countries loaded: {filteredCountries.length}</p> */}
 
             {/* displays the filtered countries if results are available.
             otherwise, displays a message when no countries are found */}

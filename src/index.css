@@ -1,0 +1,273 @@
+/* ========================================
+   color
+======================================== */
+
+:root {
+    --background-color: hsl(0, 0%, 98%);
+    --element-color: hsl(0, 100%, 100%);
+    --text-color: hsl(200, 15%, 8%);
+    --input-color: hsl(0, 0%, 50%);
+    --border-color: hsl(0, 0%, 85%);
+}
+
+body.dark-mode {
+    --background-color: hsl(207, 26%, 17%);
+    --element-color: hsl(209, 23%, 22%);
+    --text-color: hsl(0, 0%, 100%);
+    --input-color: hsl(0, 0%, 80%);
+    --border-color: hsl(209, 23%, 30%);
+}
+
+
+/* ======================================
+   general styles
+======================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: "Nunito Sans", sans-serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
+
+
+/* ========================================
+   Navbar
+======================================== */
+
+.navbar {
+    background-color: var(--element-color);
+    color: var(--text-color);
+    padding: 20px 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ========================================
+    search and region filters
+======================================== */
+
+.filters-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+    padding: 30px;
+}
+
+/* Search container */
+
+.search-container {
+    width: 38%;
+    position: relative;
+}
+
+/* Search input */
+
+.search-container input {
+    width: 100%;
+    padding: 14px 20px 14px 50px;
+}
+
+/* Search placeholder */
+
+.search-container input::placeholder {
+    color: var(--input-color);
+    opacity: 1;
+}
+
+/* Search icon */
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    left: 20px;
+    transform: translateY(-50%);
+
+    width: 15px;
+    height: 15px;
+
+    border: 1.5px solid rgba(100, 100, 100, 0.45);
+    border-radius: 50%;
+
+    box-shadow: 0 0 2px rgba(100, 100, 100, 0.20);
+}
+
+/* glass handle */
+
+.search-icon::after {
+    content: "";
+    position: absolute;
+
+    width: 7px;
+    height: 1.5px;
+
+    background-color: rgba(100, 100, 100, 0.45);
+
+    right: -5px;
+    bottom: -3px;
+
+    transform: rotate(48deg);
+}
+
+/* Region filter */
+
+.region-filter select {
+    width: 200px;
+    height: 48px;
+    cursor: pointer;
+}
+
+
+/* ========================================
+   Input and Select styles
+======================================== */
+
+input,
+select {
+    background-color: var(--element-color);
+    color: var(--text-color);
+
+    border: 1px solid transparent;
+    border-radius: 5px;
+
+    padding: 14px 20px;
+
+    font-family: inherit;
+    font-size: 14px;
+
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+
+/* ========================================
+ Country List
+======================================== */
+
+.country-list {
+    display: grid;
+
+    /* Display four columns */
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 30px;
+    padding: 30px;
+}
+
+
+/* ========================================
+  Country Card
+======================================== */
+
+.country-card {
+    background-color: var(--element-color);
+    color: var(--text-color);
+
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+}
+
+
+/* ========================================
+  Country flag
+======================================== */
+
+.country-flag-container {
+    width: 100%;
+    height: 180px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--background-color);
+}
+
+.country-flag {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    display: block;
+}
+
+/* Image not available message */
+
+.no-image {
+    color: var(--input-color);
+    font-size: 14px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+}
+
+
+/* ========================================
+  information
+======================================== */
+
+.country-info {
+    padding: 20px;
+}
+
+.country-info h2 {
+    margin-bottom: 15px;
+}
+
+.country-info p {
+    margin-bottom: 8px;
+}
+
+
+/* ========================================
+   Responsive Design
+======================================== */
+
+/* Tablet */
+
+@media (max-width: 1024px) {
+
+    .country-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+/* Mobile */
+
+@media (max-width: 600px) {
+
+    .filters-container {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 20px;
+    }
+
+    .search-container {
+        width: 100%;
+    }
+
+    .region-filter select {
+        width: 100%;
+    }
+
+    .country-list {
+        grid-template-columns: 1fr;
+        padding: 20px;
+    }
+
+}

@@ -4,14 +4,21 @@ function CountryCard({ country }) {
         <article className="country-card">
 
             {/* Country flag */}
-            {country.flag?.url_png && (
-                <img
-                    className="country-flag"
-                    src={country.flag.url_png}
-                    alt={`Flag of ${country.names.common}`}
-                    width="150"
-                />
-            )}
+            <div className="country-flag-container">
+
+                {country.flag?.url_png ? (
+                    <img
+                        className="country-flag"
+                        src={country.flag.url_png}
+                        alt={`Flag of ${country.names.common}`}
+                    />
+                ) : (
+                    <p className="no-image">
+                        Image not available
+                    </p>
+                )}
+
+            </div>
 
             {/* Country information */}
             <div className="country-info">

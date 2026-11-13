@@ -16,7 +16,7 @@ export default function CountryDetails({ countries }) {
 
     // check if the country exists
     if (!selectedCountry) {
-        return <p>Country not found.</p>;
+        return <p>Country not found.</p>;back 
     }
 
     // get native name from the available data

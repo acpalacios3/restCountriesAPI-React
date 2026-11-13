@@ -1,9 +1,13 @@
 import { useParams, Link } from "react-router-dom";
+import useTheme from "../hooks/useTheme";
 
 export default function CountryDetails({ countries }) {
 
     // get the country code from the URL
     const { code } = useParams();
+
+    //   theme Dark - Light
+    const { theme, toggleTheme } = useTheme();
 
     // test:
     // console.log("Country code from URL:", code);
@@ -16,7 +20,7 @@ export default function CountryDetails({ countries }) {
 
     // check if the country exists
     if (!selectedCountry) {
-        return <p>Country not found.</p>;back 
+        return <p>Country not found.</p>; 
     }
 
     // get native name from the available data
@@ -53,10 +57,22 @@ export default function CountryDetails({ countries }) {
     return (
         <main className="country-details">
 
-            {/* Back button */}
-            <Link to="/" className="back-button">
-                ← Back
-            </Link>
+            <div className="details-navigation">
+
+                {/* Back button */}
+                <Link to="/" className="back-button">
+                    ← Back
+                </Link>
+
+                {/* Dark-Light Mode button */}
+                <button
+                    className="theme-button"
+                    onClick={toggleTheme}
+                >
+                    {theme === "light" ? "Dark Mode" : "Light Mode"}
+                </button>
+
+            </div>
 
 
             <div className="country-content-detail">

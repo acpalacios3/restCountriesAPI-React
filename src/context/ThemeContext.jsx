@@ -22,7 +22,7 @@ export function ThemeProvider({ children }) {
 
     }, [theme]);
 
-    // function to change theme
+    // function to change themecontext
     const toggleTheme = () => {
         setTheme(prevTheme =>
             prevTheme === "light" ? "dark" : "light"
